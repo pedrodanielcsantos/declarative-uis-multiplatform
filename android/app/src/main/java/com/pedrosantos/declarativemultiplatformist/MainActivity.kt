@@ -9,7 +9,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import com.pedrosantos.declarativemultiplatformist.ui.theme.DeclarativeMultiplatformistTheme
 import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.TaskListViewModel
 import com.pedrosantos.declarativemultiplatformist.ui.widgets.TaskListScreen
-import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<TaskListViewModel>()
@@ -23,18 +22,10 @@ class MainActivity : ComponentActivity() {
                 TaskListScreen(
                     state,
                     viewModel::invert,
-                    viewModel::onClick
+                    viewModel::onClick,
+                    viewModel::onSubmit,
                 )
             }
         }
     }
 }
-
-private fun generateDate() = System.currentTimeMillis() + Random.nextInt(1000, 100_000)
-
-/**
- * Class that represents a task.
- */
-data class Task(val content: String, val date: Long = generateDate(), val isUrgent: Boolean = false)
-
-
