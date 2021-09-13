@@ -5,16 +5,16 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pedrosantos.declarativemultiplatformist.common.Task
+import com.pedrosantos.declarativemultiplatformist.common.TaskCreator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Locale
-import kotlin.random.Random
 
 class TaskListViewModel : ViewModel() {
-    private val dateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.getDefault())
     private val tasks = MutableLiveData<List<Task>>(listOf())
     private val sortingDirection = MutableLiveData(SortingDirection.ASCENDING)
+
+    private val taskCreator = TaskCreator()
 
     private var job: Job? = null
 
@@ -28,9 +28,9 @@ class TaskListViewModel : ViewModel() {
         job = viewModelScope.launch {
             _state.value = State(
                 if (sortingDirection.value == SortingDirection.ASCENDING) {
-                    tasks.value.orEmpty().sortedBy { it.date }
+                    tasks.value.orEmpty().sortedBy { it.dueTimestamp }
                 } else {
-                    tasks.value.orEmpty().sortedByDescending { it.date }
+                    tasks.value.orEmpty().sortedByDescending { it.dueTimestamp }
                 },
                 requireNotNull(sortingDirection.value)
             )
@@ -55,19 +55,14 @@ class TaskListViewModel : ViewModel() {
         dateTime: String,
         isUrgent: Boolean
     ): Boolean {
-        return if (content.isNotEmpty() && dateTime.isValidDate()) {
-            val dateMs = requireNotNull(dateFormat.parse(dateTime)).time
-            tasks.value = tasks.value.orEmpty() + Task(content, dateMs, isUrgent)
+        val result = taskCreator.create(content, dateTime, isUrgent)
+
+        return if (result is TaskCreator.Result.Success) {
+            tasks.value = tasks.value.orEmpty() + result.task
             true
         } else {
             false
         }
-    }
-
-    private fun String.isValidDate(): Boolean = try {
-        dateFormat.parse(this) != null
-    } catch (e: Exception) {
-        false
     }
 
     data class State(val tasks: List<Task>, val sortingDirection: SortingDirection)
@@ -76,11 +71,3 @@ class TaskListViewModel : ViewModel() {
         ASCENDING, DESCENDING
     }
 }
-
-private fun generateDate() = System.currentTimeMillis() + Random.nextInt(1000, 100_000)
-
-/**
- * Class that represents a task.
- */
-data class Task(val content: String, val date: Long = generateDate(), val isUrgent: Boolean = false)
-

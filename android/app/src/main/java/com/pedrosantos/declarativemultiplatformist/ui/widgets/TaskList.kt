@@ -39,8 +39,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.pedrosantos.declarativemultiplatformist.R
+import com.pedrosantos.declarativemultiplatformist.common.Task
 import com.pedrosantos.declarativemultiplatformist.ui.theme.Shapes
-import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.Task
 import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.TaskListViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -169,7 +169,7 @@ private fun TaskCard(task: Task, onClick: (task: Task) -> Unit) {
         Text(
             modifier = Modifier.padding(horizontal = 8.dp),
             style = MaterialTheme.typography.caption,
-            text = "${Date(task.date)}",
+            text = "${Date(task.dueTimestamp)}",
         )
         Spacer(modifier = Modifier.height(2.dp))
         Divider(
