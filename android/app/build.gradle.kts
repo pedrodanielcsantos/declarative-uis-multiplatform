@@ -63,6 +63,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("androidx.activity:activity-compose:1.3.1")
     implementation("androidx.activity:activity-ktx:1.3.1")
+    implementation("com.pedrosantos:declarative-multiplatformist-common:1.0.0")
 
     testImplementation("junit:junit:4.13.2")
 

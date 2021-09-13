@@ -1,3 +1,1 @@
-
-rootProject.name = "untitled1"
-
+rootProject.name = "declarative-multiplatformist-common"
