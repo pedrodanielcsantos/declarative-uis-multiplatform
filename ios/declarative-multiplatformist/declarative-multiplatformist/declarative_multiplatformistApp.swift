@@ -11,7 +11,7 @@ import SwiftUI
 struct declarative_multiplatformistApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TaskListView(tasks: Task.data)
         }
     }
 }
