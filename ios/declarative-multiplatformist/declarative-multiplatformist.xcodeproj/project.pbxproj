@@ -15,6 +15,8 @@
 		3D64D0E926E0E27200AC78C9 /* declarative_multiplatformistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64D0E826E0E27200AC78C9 /* declarative_multiplatformistUITests.swift */; };
 		3DF3C19826F2021000C38431 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3C19726F2021000C38431 /* Task.swift */; };
 		3DF3C19A26F204CE00C38431 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3C19926F204CE00C38431 /* TaskView.swift */; };
+		3DF3C19C26F49C1700C38431 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3C19B26F49C1700C38431 /* AddTaskView.swift */; };
+		3DF3C19E26F4AE2300C38431 /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3C19D26F4AE2300C38431 /* TaskData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		3D64D0EA26E0E27200AC78C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DF3C19726F2021000C38431 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		3DF3C19926F204CE00C38431 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		3DF3C19B26F49C1700C38431 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		3DF3C19D26F4AE2300C38431 /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +103,12 @@
 		3D64D0CA26E0E27100AC78C9 /* declarative-multiplatformist */ = {
 			isa = PBXGroup;
 			children = (
+				3D66C92826F89EAD006D87B6 /* view */,
 				3DF3C19626F201FC00C38431 /* model */,
 				3D64D0CB26E0E27100AC78C9 /* declarative_multiplatformistApp.swift */,
-				3D64D0CD26E0E27100AC78C9 /* TaskListView.swift */,
 				3D64D0CF26E0E27200AC78C9 /* Assets.xcassets */,
 				3D64D0D426E0E27200AC78C9 /* Info.plist */,
 				3D64D0D126E0E27200AC78C9 /* Preview Content */,
-				3DF3C19926F204CE00C38431 /* TaskView.swift */,
 			);
 			path = "declarative-multiplatformist";
 			sourceTree = "<group>";
@@ -136,10 +139,21 @@
 			path = "declarative-multiplatformistUITests";
 			sourceTree = "<group>";
 		};
+		3D66C92826F89EAD006D87B6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				3D64D0CD26E0E27100AC78C9 /* TaskListView.swift */,
+				3DF3C19926F204CE00C38431 /* TaskView.swift */,
+				3DF3C19B26F49C1700C38431 /* AddTaskView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		3DF3C19626F201FC00C38431 /* model */ = {
 			isa = PBXGroup;
 			children = (
 				3DF3C19726F2021000C38431 /* Task.swift */,
+				3DF3C19D26F4AE2300C38431 /* TaskData.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -274,6 +288,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D64D0CE26E0E27100AC78C9 /* TaskListView.swift in Sources */,
+				3DF3C19C26F49C1700C38431 /* AddTaskView.swift in Sources */,
+				3DF3C19E26F4AE2300C38431 /* TaskData.swift in Sources */,
 				3DF3C19826F2021000C38431 /* Task.swift in Sources */,
 				3D64D0CC26E0E27100AC78C9 /* declarative_multiplatformistApp.swift in Sources */,
 				3DF3C19A26F204CE00C38431 /* TaskView.swift in Sources */,
