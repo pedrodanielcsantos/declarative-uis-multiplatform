@@ -22,7 +22,8 @@ struct TaskView: View {
 }
 
 struct TaskView_Previews: PreviewProvider {
-    static var task = Task.data[0]
+    static var task =
+        Task(content: "Content", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false)
     
     static var previews: some View {
         TaskView(task: task)

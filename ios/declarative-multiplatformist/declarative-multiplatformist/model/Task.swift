@@ -15,23 +15,6 @@ struct Task: Identifiable {
 }
 
 extension Task {
-    static var data: [Task] {
-        [
-            Task(content: "milk", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false),
-            Task(content: "donuts", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: true),
-            Task(content: "chocolate", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false),
-            Task(content: "pastry", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false),
-            Task(content: "meat", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: true),
-            Task(content: "fish", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false),
-            Task(content: "milk", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false),
-            Task(content: "donuts", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: true),
-            Task(content: "chocolate", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false),
-            Task(content: "pastry", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false),
-            Task(content: "meat", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: true),
-            Task(content: "fish", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false),
-        ]
-    }
-    
     var dueString: String {
         get {
             let date = Date(timeIntervalSince1970: dueTimestamp)
