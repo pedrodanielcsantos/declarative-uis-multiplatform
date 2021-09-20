@@ -13,6 +13,7 @@ struct TaskListView: View {
     
     let submitAction: (String, String, Bool) -> Bool
     let invertAction: () -> Void
+    let deleteAction: (IndexSet) -> Void
     
     var body: some View {
         VStack {
@@ -22,12 +23,8 @@ struct TaskListView: View {
             }
             
             List {
-                ForEach(taskData.tasks) { task in
-                    TaskView(task: task)
-                }
-                .onDelete { indexSet in
-                    taskData.tasks.remove(atOffsets: indexSet)
-                }
+                ForEach(taskData.tasks) { task in TaskView(task: task) }
+                    .onDelete { indexSet in deleteAction(indexSet) }
             }
             .sheet(
                 isPresented: $isAddTaskPresented,
@@ -50,7 +47,8 @@ struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
         TaskListView(
             submitAction: {_,_,_ in true},
-            invertAction: {}
-        ) .environmentObject(TaskData())
+            invertAction: {},
+            deleteAction: {_ in }
+        ).environmentObject(TaskData())
     }
 }

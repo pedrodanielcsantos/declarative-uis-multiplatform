@@ -15,7 +15,8 @@ struct declarative_multiplatformistApp: App {
         WindowGroup {
             TaskListView(
                 submitAction: data.addTask,
-                invertAction: data.invert
+                invertAction: data.invert,
+                deleteAction: data.delete
             ).environmentObject(data)
         }
     }
