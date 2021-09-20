@@ -16,7 +16,16 @@ It contains the Android component of this experiment. You can get it up and runn
 _Note:_ ensure you publish the _common_ module before trying to run the app, otherwise you'll get an error because that dependency can't be found.
 
 ### ios
-For now, just contains the skeleton for the iOS app. Will be worked on soon. 🚧
+It contains the iOS component of this experiment.
+
+Having come from Android native development and having never done any iOS development, here are some resources that helped me getting up to speed:
+- https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app
+- https://developer.apple.com/tutorials/app-dev-training/#swiftui-essentials
+
+Ideas to improve:
+- Added tasks' persistence
+- Localization
+- Making the UI more friendly
 
 ### common
 Contains the KMP project. To open and edit it, you can use [IntelliJ IDEA](https://www.jetbrains.com/idea/)

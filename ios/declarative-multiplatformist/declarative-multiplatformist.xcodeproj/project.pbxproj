@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		3D64D0CC26E0E27100AC78C9 /* declarative_multiplatformistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64D0CB26E0E27100AC78C9 /* declarative_multiplatformistApp.swift */; };
-		3D64D0CE26E0E27100AC78C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64D0CD26E0E27100AC78C9 /* ContentView.swift */; };
+		3D64D0CE26E0E27100AC78C9 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64D0CD26E0E27100AC78C9 /* TaskListView.swift */; };
 		3D64D0D026E0E27200AC78C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D64D0CF26E0E27200AC78C9 /* Assets.xcassets */; };
 		3D64D0D326E0E27200AC78C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D64D0D226E0E27200AC78C9 /* Preview Assets.xcassets */; };
 		3D64D0DE26E0E27200AC78C9 /* declarative_multiplatformistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64D0DD26E0E27200AC78C9 /* declarative_multiplatformistTests.swift */; };
 		3D64D0E926E0E27200AC78C9 /* declarative_multiplatformistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64D0E826E0E27200AC78C9 /* declarative_multiplatformistUITests.swift */; };
+		3DF3C19826F2021000C38431 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3C19726F2021000C38431 /* Task.swift */; };
+		3DF3C19A26F204CE00C38431 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3C19926F204CE00C38431 /* TaskView.swift */; };
+		3DF3C19C26F49C1700C38431 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3C19B26F49C1700C38431 /* AddTaskView.swift */; };
+		3DF3C19E26F4AE2300C38431 /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3C19D26F4AE2300C38431 /* TaskData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +39,7 @@
 /* Begin PBXFileReference section */
 		3D64D0C826E0E27100AC78C9 /* declarative-multiplatformist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "declarative-multiplatformist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D64D0CB26E0E27100AC78C9 /* declarative_multiplatformistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = declarative_multiplatformistApp.swift; sourceTree = "<group>"; };
-		3D64D0CD26E0E27100AC78C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3D64D0CD26E0E27100AC78C9 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		3D64D0CF26E0E27200AC78C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D64D0D226E0E27200AC78C9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3D64D0D426E0E27200AC78C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,6 +49,10 @@
 		3D64D0E426E0E27200AC78C9 /* declarative-multiplatformistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "declarative-multiplatformistUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D64D0E826E0E27200AC78C9 /* declarative_multiplatformistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = declarative_multiplatformistUITests.swift; sourceTree = "<group>"; };
 		3D64D0EA26E0E27200AC78C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DF3C19726F2021000C38431 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		3DF3C19926F204CE00C38431 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		3DF3C19B26F49C1700C38431 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		3DF3C19D26F4AE2300C38431 /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +103,9 @@
 		3D64D0CA26E0E27100AC78C9 /* declarative-multiplatformist */ = {
 			isa = PBXGroup;
 			children = (
+				3D66C92826F89EAD006D87B6 /* view */,
+				3DF3C19626F201FC00C38431 /* model */,
 				3D64D0CB26E0E27100AC78C9 /* declarative_multiplatformistApp.swift */,
-				3D64D0CD26E0E27100AC78C9 /* ContentView.swift */,
 				3D64D0CF26E0E27200AC78C9 /* Assets.xcassets */,
 				3D64D0D426E0E27200AC78C9 /* Info.plist */,
 				3D64D0D126E0E27200AC78C9 /* Preview Content */,
@@ -128,6 +137,25 @@
 				3D64D0EA26E0E27200AC78C9 /* Info.plist */,
 			);
 			path = "declarative-multiplatformistUITests";
+			sourceTree = "<group>";
+		};
+		3D66C92826F89EAD006D87B6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				3D64D0CD26E0E27100AC78C9 /* TaskListView.swift */,
+				3DF3C19926F204CE00C38431 /* TaskView.swift */,
+				3DF3C19B26F49C1700C38431 /* AddTaskView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		3DF3C19626F201FC00C38431 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				3DF3C19726F2021000C38431 /* Task.swift */,
+				3DF3C19D26F4AE2300C38431 /* TaskData.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +287,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D64D0CE26E0E27100AC78C9 /* ContentView.swift in Sources */,
+				3D64D0CE26E0E27100AC78C9 /* TaskListView.swift in Sources */,
+				3DF3C19C26F49C1700C38431 /* AddTaskView.swift in Sources */,
+				3DF3C19E26F4AE2300C38431 /* TaskData.swift in Sources */,
+				3DF3C19826F2021000C38431 /* Task.swift in Sources */,
 				3D64D0CC26E0E27100AC78C9 /* declarative_multiplatformistApp.swift in Sources */,
+				3DF3C19A26F204CE00C38431 /* TaskView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

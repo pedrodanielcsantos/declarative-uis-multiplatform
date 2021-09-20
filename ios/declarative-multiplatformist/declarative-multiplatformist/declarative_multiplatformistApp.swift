@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct declarative_multiplatformistApp: App {
+    @StateObject private var data = TaskData()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TaskListView(
+                submitAction: data.addTask,
+                invertAction: data.invert,
+                deleteAction: data.delete
+            ).environmentObject(data)
         }
     }
 }
