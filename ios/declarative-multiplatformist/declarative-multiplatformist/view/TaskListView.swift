@@ -16,12 +16,18 @@ struct TaskListView: View {
     let deleteAction: (IndexSet) -> Void
     
     var body: some View {
+        let isEmpty = taskData.tasks.count == 0
         VStack {
             HStack {
                 Button("Add task") { isAddTaskPresented = true }
-                Button("Invert") { invertAction() }
+                if !isEmpty {
+                    Button("Invert") { invertAction() }
+                }
             }
             
+            if (isEmpty) {
+                Text("No more tasks to do at this time. 😌")
+            }
             List {
                 ForEach(taskData.tasks) { task in TaskView(task: task) }
                     .onDelete { indexSet in deleteAction(indexSet) }
