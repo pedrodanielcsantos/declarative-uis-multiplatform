@@ -21,6 +21,11 @@ kotlin {
         }
     }
 
+    val appleFrameworkName = "declarative_multiplatformist_common_ios"
+    configure(listOf(iosX64(), iosArm64())) {
+        binaries.framework { baseName = appleFrameworkName }
+    }
+
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
@@ -48,7 +53,28 @@ kotlin {
                 implementation(kotlin("test-junit"))
             }
         }
-        val nativeMain by getting
-        val nativeTest by getting
+    }
+
+    tasks.register<Delete>("cleanXCFramework") {
+        delete = setOf("swiftpackage/$appleFrameworkName.xcframework")
+    }
+
+    tasks.register<Exec>("buildXCFramework") {
+        dependsOn("assemble")
+        dependsOn("cleanXCFramework")
+        commandLine(
+            "xcodebuild",
+            "-create-xcframework",
+            "-output",
+            "swiftpackage/$appleFrameworkName.xcframework",
+            "-framework",
+            buildDir.resolve("bin/iosX64/debugFramework/$appleFrameworkName.framework"),
+            "-debug-symbols",
+            buildDir.resolve("bin/iosX64/debugFramework/$appleFrameworkName.framework.dSYM"),
+            "-framework",
+            buildDir.resolve("bin/iosArm64/debugFramework/$appleFrameworkName.framework"),
+            "-debug-symbols",
+            buildDir.resolve("bin/iosArm64/debugFramework/$appleFrameworkName.framework.dSYM")
+        )
     }
 }
