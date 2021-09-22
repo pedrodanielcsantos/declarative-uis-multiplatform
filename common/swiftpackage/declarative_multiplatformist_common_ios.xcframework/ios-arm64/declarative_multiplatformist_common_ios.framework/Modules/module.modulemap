@@ -1,0 +1,6 @@
+framework module declarative_multiplatformist_common_ios {
+    umbrella header "declarative_multiplatformist_common_ios.h"
+
+    export *
+    module * { export * }
+}
