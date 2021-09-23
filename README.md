@@ -32,7 +32,9 @@ Ideas to improve:
 ### common
 Contains the KMP project. To open and edit it, you can use [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
-Right now, the way this module is setup to be distributed is through a local maven repository [ref](https://www.jetbrains.com/idea/).
+**Android integration**
+
+This module is setup to be distributed is through a local maven repository.
 
 To do it locally, please do the following:
 - Check out this repository
@@ -44,3 +46,14 @@ To consume it on the Android app, you need to add this dependency:
 ```kotlin
 implementation("com.pedrosantos:declarative-multiplatformist-common:$version")
 ```
+
+**iOS integration**
+
+This module is setup to be distributed as a `XCFramework`.
+
+To generate a new version, please do the following:
+- Check out this repository
+- Switch to the `common` folder
+- Through your terminal, run `./gradlew buildXCFramework`
+- At this point, the library should be available under `swiftpackage/declarative_multiplatformist_common_ios.xcframework`
+- To integrate it in your iOS project, add the `xcframework` file to your project ([example](https://www.simpleswiftguide.com/how-to-add-xcframework-to-xcode-project/)).
