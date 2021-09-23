@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0E339426FC85C300C41B2D /* declarative_multiplatformist_common_ios.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0E339326FC85C300C41B2D /* declarative_multiplatformist_common_ios.xcframework */; };
 		3D64D0CC26E0E27100AC78C9 /* declarative_multiplatformistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64D0CB26E0E27100AC78C9 /* declarative_multiplatformistApp.swift */; };
 		3D64D0CE26E0E27100AC78C9 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64D0CD26E0E27100AC78C9 /* TaskListView.swift */; };
 		3D64D0D026E0E27200AC78C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D64D0CF26E0E27200AC78C9 /* Assets.xcassets */; };
@@ -36,7 +37,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3D0E339226FC79EC00C41B2D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		3D0E339326FC85C300C41B2D /* declarative_multiplatformist_common_ios.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = declarative_multiplatformist_common_ios.xcframework; path = ../../../common/swiftpackage/declarative_multiplatformist_common_ios.xcframework; sourceTree = "<group>"; };
 		3D64D0C826E0E27100AC78C9 /* declarative-multiplatformist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "declarative-multiplatformist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D64D0CB26E0E27100AC78C9 /* declarative_multiplatformistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = declarative_multiplatformistApp.swift; sourceTree = "<group>"; };
 		3D64D0CD26E0E27100AC78C9 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
@@ -60,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0E339426FC85C300C41B2D /* declarative_multiplatformist_common_ios.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,9 +96,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D0E338D26FC797700C41B2D /* frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D0E339326FC85C300C41B2D /* declarative_multiplatformist_common_ios.xcframework */,
+			);
+			path = frameworks;
+			sourceTree = "<group>";
+		};
 		3D64D0BF26E0E27100AC78C9 = {
 			isa = PBXGroup;
 			children = (
+				3D0E338D26FC797700C41B2D /* frameworks */,
 				3D64D0CA26E0E27100AC78C9 /* declarative-multiplatformist */,
 				3D64D0DC26E0E27200AC78C9 /* declarative-multiplatformistTests */,
 				3D64D0E726E0E27200AC78C9 /* declarative-multiplatformistUITests */,
@@ -168,6 +193,7 @@
 				3D64D0C426E0E27100AC78C9 /* Sources */,
 				3D64D0C526E0E27100AC78C9 /* Frameworks */,
 				3D64D0C626E0E27100AC78C9 /* Resources */,
+				3D0E339226FC79EC00C41B2D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

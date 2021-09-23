@@ -21,6 +21,8 @@ It contains the iOS component of this experiment.
 Having come from Android native development and having never done any iOS development, here are some resources that helped me getting up to speed:
 - https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app
 - https://developer.apple.com/tutorials/app-dev-training/#swiftui-essentials
+- https://www.marcogomiero.com/posts/2021/build-xcframework-kmp/
+- https://medium.com/wantedly-engineering/different-approaches-in-consuming-kmm-modules-in-ios-7957c722b114
 
 Ideas to improve:
 - Added tasks' persistence

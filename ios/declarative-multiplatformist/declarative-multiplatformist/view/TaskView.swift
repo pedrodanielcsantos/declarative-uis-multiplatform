@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import declarative_multiplatformist_common_ios
 
 struct TaskView: View {
-    let task: Task
+    let task: UiTask
     var body: some View {
         VStack(alignment: .leading) {
             Text(task.content)
@@ -23,7 +24,7 @@ struct TaskView: View {
 
 struct TaskView_Previews: PreviewProvider {
     static var task =
-        Task(content: "Content", dueTimestamp: NSDate().timeIntervalSince1970, isUrgent: false)
+        UiTask(content: "Content", dueTimestamp: Date().timeIntervalSince1970, isUrgent: false)
     
     static var previews: some View {
         TaskView(task: task)
