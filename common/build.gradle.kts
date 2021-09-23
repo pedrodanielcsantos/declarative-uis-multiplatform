@@ -56,7 +56,7 @@ kotlin {
     }
 
     tasks.register<Delete>("cleanXCFramework") {
-        delete = setOf("swiftpackage/$appleFrameworkName.xcframework")
+        delete = setOf("xcframework/$appleFrameworkName.xcframework")
     }
 
     tasks.register<Exec>("buildXCFramework") {
@@ -66,7 +66,7 @@ kotlin {
             "xcodebuild",
             "-create-xcframework",
             "-output",
-            "swiftpackage/$appleFrameworkName.xcframework",
+            "xcframework/$appleFrameworkName.xcframework",
             "-framework",
             buildDir.resolve("bin/iosX64/debugFramework/$appleFrameworkName.framework"),
             "-debug-symbols",
