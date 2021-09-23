@@ -6,15 +6,28 @@
 //
 
 import SwiftUI
+import declarative_multiplatformist_common_ios
 
-struct Task: Identifiable {
+ struct UiTask: Identifiable {
     let id: UUID = UUID()
     let content: String
     let dueTimestamp: Double
     let isUrgent: Bool
-}
+     
+     init(task: Task) {
+         self.content = task.content
+         self.dueTimestamp = Date(milliseconds: task.dueTimestamp).timeIntervalSince1970
+         self.isUrgent = task.isUrgent
+     }
+     
+     init(content: String, dueTimestamp: Double, isUrgent: Bool) {
+         self.content = content
+         self.dueTimestamp = dueTimestamp
+         self.isUrgent = is
+     }
+ }
 
-extension Task {
+extension UiTask {
     var dueString: String {
         get {
             let date = Date(timeIntervalSince1970: dueTimestamp)
@@ -34,5 +47,15 @@ extension Task {
                 return Color.black
             }
         }
+    }
+}
+
+extension Date {
+    var millisecondsSince1970:Int64 {
+        return Int64((self.timeIntervalSince1970 * 1000.0).rounded())
+    }
+    
+    init(milliseconds:Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
 }

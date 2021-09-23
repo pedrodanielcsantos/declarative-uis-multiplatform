@@ -17,7 +17,7 @@ struct AddTaskView: View {
     var body: some View {
         Form {
             TextField("Content", text: $content)
-            TextField("yyyy-MM-dd hh:mm", text: $dateTime)
+            TextField("yyyy-MM-ddThh:mm", text: $dateTime)
             Toggle("Is urgent: ", isOn: $isUrgent)
             Button("Submit") { submitAction(content, dateTime, isUrgent) }
         }

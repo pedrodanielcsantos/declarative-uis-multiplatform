@@ -6,21 +6,23 @@
 //
 
 import Foundation
+import declarative_multiplatformist_common_ios
 
 class TaskData: ObservableObject {
+    private let taskCreator = TaskCreator()
     private var sortingDirection = SortingDirection.Ascending {
         didSet {
             objectWillChange.send()
         }
     }
     
-    private var _tasks: [Task] = [] {
+    private var _tasks: [UiTask] = [] {
         didSet {
             objectWillChange.send()
         }
     }
     
-    var tasks: [Task] {
+    var tasks: [UiTask] {
         get {
             _tasks.sorted(by: { (lhs, rhs) -> Bool in
                 if sortingDirection == SortingDirection.Ascending {
@@ -33,17 +35,14 @@ class TaskData: ObservableObject {
     }
     
     func addTask(content: String, dateTime: String, isUrgent: Bool) -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone.current
-        dateFormatter.locale = NSLocale.current
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let date = dateFormatter.date(from:dateTime)
+        let result = taskCreator.create(content: content, dateTime: dateTime, isUrgent: isUrgent)
         
-        if content.isEmpty || date == nil {
+        
+        if result is TaskCreator.ResultInvalid {
             print("Invalid data")
             return false
         } else {
-            _tasks.append(Task(content: content, dueTimestamp: date!.timeIntervalSince1970, isUrgent: isUrgent))
+            _tasks.append(UiTask(task: (result as! TaskCreator.ResultSuccess).task))
             return true
         }
     }
