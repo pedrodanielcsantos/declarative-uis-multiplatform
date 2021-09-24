@@ -10,6 +10,7 @@ import com.pedrosantos.declarativemultiplatformist.ui.theme.DeclarativeMultiplat
 import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.TaskListViewModel
 import com.pedrosantos.declarativemultiplatformist.ui.widgets.TaskListScreen
 
+@ExperimentalStdlibApi
 class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<TaskListViewModel>()
 

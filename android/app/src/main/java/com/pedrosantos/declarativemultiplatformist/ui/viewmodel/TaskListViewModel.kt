@@ -50,18 +50,29 @@ class TaskListViewModel : ViewModel() {
         tasks.value = tasks.value.orEmpty() - task
     }
 
+    @ExperimentalStdlibApi
     fun onSubmit(
         content: String,
         dateTime: String,
         isUrgent: Boolean
-    ): Boolean {
+    ): TaskSubmitionResult {
         val result = taskCreator.create(content, dateTime, isUrgent)
 
         return if (result is TaskCreator.Result.Success) {
             tasks.value = tasks.value.orEmpty() + result.task
-            true
+            TaskSubmitionResult.Success
         } else {
-            false
+            val errors = (result as TaskCreator.Result.Invalid).errors
+            TaskSubmitionResult.Error(
+                buildList {
+                    if (errors.contains(TaskCreator.Error.InvalidContent)) {
+                        add(TaskSubmitionError.INVALID_CONTENT)
+                    }
+                    if (errors.contains(TaskCreator.Error.InvalidDate)) {
+                        add(TaskSubmitionError.INVALID_DATE)
+                    }
+                }
+            )
         }
     }
 
@@ -70,4 +81,14 @@ class TaskListViewModel : ViewModel() {
     enum class SortingDirection {
         ASCENDING, DESCENDING
     }
+}
+
+enum class TaskSubmitionError {
+    INVALID_DATE, INVALID_CONTENT
+}
+
+sealed class TaskSubmitionResult {
+    object Success : TaskSubmitionResult()
+
+    data class Error(val errors: List<TaskSubmitionError>) : TaskSubmitionResult()
 }

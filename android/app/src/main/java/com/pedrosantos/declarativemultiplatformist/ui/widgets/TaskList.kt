@@ -42,16 +42,18 @@ import com.pedrosantos.declarativemultiplatformist.R
 import com.pedrosantos.declarativemultiplatformist.common.Task
 import com.pedrosantos.declarativemultiplatformist.ui.theme.Shapes
 import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.TaskListViewModel
+import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.TaskSubmitionError
+import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.TaskSubmitionResult
 import kotlinx.coroutines.launch
 import java.util.Date
 
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @Composable
 fun TaskListScreen(
     state: TaskListViewModel.State?,
     onInvert: () -> Unit,
     onClick: (task: Task) -> Unit,
-    onSubmit: (String, String, Boolean) -> Boolean
+    onSubmit: (String, String, Boolean) -> TaskSubmitionResult
 ) {
     Surface(color = MaterialTheme.colors.background) {
         val addTaskBottomSheetState = rememberBottomSheetScaffoldState()
@@ -63,11 +65,11 @@ fun TaskListScreen(
             sheetContent = {
                 AddTaskScreen(
                     onSubmit = { content, dateTime, isUrgent ->
-                        if (onSubmit(content, dateTime, isUrgent)) {
-                            scope.launch { addTaskBottomSheetState.bottomSheetState.collapse() }
-                            true
-                        } else {
-                            false
+                        val result = onSubmit(content, dateTime, isUrgent)
+                        result.also {
+                            if (it is TaskSubmitionResult.Success) {
+                                scope.launch { addTaskBottomSheetState.bottomSheetState.collapse() }
+                            }
                         }
                     }
                 )
@@ -178,65 +180,6 @@ private fun TaskCard(task: Task, onClick: (task: Task) -> Unit) {
             modifier = Modifier.padding(horizontal = 8.dp)
         )
         Spacer(modifier = Modifier.height(2.dp))
-    }
-}
-
-@Composable
-private fun AddTaskScreen(onSubmit: (String, String, Boolean) -> Boolean) {
-    var content by remember { mutableStateOf("") }
-    var dateTime by remember { mutableStateOf("") }
-    var isUrgent by remember { mutableStateOf(false) }
-    Column(Modifier.padding(8.dp)) {
-        Text(
-            text = stringResource(id = R.string.add_task),
-            style = MaterialTheme.typography.h5,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = content,
-            onValueChange = { content = it },
-            modifier = Modifier.fillMaxWidth(),
-            label = { Text(stringResource(R.string.content)) })
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        OutlinedTextField(
-            value = dateTime,
-            onValueChange = { dateTime = it },
-            modifier = Modifier.fillMaxWidth(),
-            label = { Text(stringResource(R.string.date_format)) },
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(stringResource(R.string.urgent))
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Checkbox(
-                checked = isUrgent,
-                onCheckedChange = { isUrgent = it },
-                enabled = true,
-            )
-
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
-            onClick = {
-                if (onSubmit(content, dateTime, isUrgent)) {
-                    content = ""
-                    dateTime = ""
-                    isUrgent = false
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(R.string.submit))
-        }
     }
 }
 
