@@ -17,10 +17,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pedrosantos.declarativemultiplatformist.R
-import com.pedrosantos.declarativemultiplatformist.common.Task
 import com.pedrosantos.declarativemultiplatformist.ui.theme.Shapes
 import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.TaskListViewModel
 import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.TaskSubmitionResult
+import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.UiTask
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -29,7 +29,7 @@ import java.util.*
 fun TaskListScreen(
     state: TaskListViewModel.State?,
     onInvert: () -> Unit,
-    onClick: (task: Task) -> Unit,
+    onClick: (task: UiTask) -> Unit,
     onSubmit: (String, String, Boolean) -> TaskSubmitionResult
 ) {
     Surface(color = MaterialTheme.colors.background) {
@@ -126,7 +126,7 @@ private fun TextIconButton(icon: ImageVector, text: String, action: ButtonAction
 }
 
 @Composable
-private fun TaskList(tasks: List<Task>, onClick: (task: Task) -> Unit) {
+private fun TaskList(tasks: List<UiTask>, onClick: (task: UiTask) -> Unit) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(4.dp),
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp)
@@ -141,7 +141,7 @@ private fun TaskList(tasks: List<Task>, onClick: (task: Task) -> Unit) {
 }
 
 @Composable
-private fun TaskCard(task: Task, onClick: (task: Task) -> Unit) {
+private fun TaskCard(task: UiTask, onClick: (task: UiTask) -> Unit) {
     Card(elevation = 4.dp) {
         Column(
             Modifier

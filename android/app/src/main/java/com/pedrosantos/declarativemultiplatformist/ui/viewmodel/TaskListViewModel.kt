@@ -1,17 +1,13 @@
 package com.pedrosantos.declarativemultiplatformist.ui.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.pedrosantos.declarativemultiplatformist.common.Task
 import com.pedrosantos.declarativemultiplatformist.common.TaskCreator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class TaskListViewModel : ViewModel() {
-    private val tasks = MutableLiveData<List<Task>>(listOf())
+    private val tasks = MutableLiveData<List<UiTask>>(listOf())
     private val sortingDirection = MutableLiveData(SortingDirection.ASCENDING)
 
     private val taskCreator = TaskCreator()
@@ -45,7 +41,7 @@ class TaskListViewModel : ViewModel() {
         }
     }
 
-    fun onClick(task: Task) {
+    fun onClick(task: UiTask) {
         // Remove clicked task from list.
         tasks.value = tasks.value.orEmpty() - task
     }
@@ -59,7 +55,7 @@ class TaskListViewModel : ViewModel() {
         val result = taskCreator.create(content, dateTime, isUrgent)
 
         return if (result is TaskCreator.Result.Success) {
-            tasks.value = tasks.value.orEmpty() + result.task
+            tasks.value = tasks.value.orEmpty() + result.task.toUiTask()
             TaskSubmitionResult.Success
         } else {
             val errors = (result as TaskCreator.Result.Invalid).errors
@@ -76,11 +72,13 @@ class TaskListViewModel : ViewModel() {
         }
     }
 
-    data class State(val tasks: List<Task>, val sortingDirection: SortingDirection)
+    data class State(val tasks: List<UiTask>, val sortingDirection: SortingDirection)
 
     enum class SortingDirection {
         ASCENDING, DESCENDING
     }
+
+    private fun Task.toUiTask() = UiTask(content, dueTimestamp, isUrgent)
 }
 
 enum class TaskSubmitionError {
@@ -92,3 +90,5 @@ sealed class TaskSubmitionResult {
 
     data class Error(val errors: List<TaskSubmitionError>) : TaskSubmitionResult()
 }
+
+data class UiTask(val content: String, val dueTimestamp: Long, val isUrgent: Boolean)
