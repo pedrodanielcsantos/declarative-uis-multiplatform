@@ -1,5 +1,7 @@
 package com.pedrosantos.declarativemultiplatformist.ui.widgets
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +26,7 @@ import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.UiTask
 import kotlinx.coroutines.launch
 import java.util.*
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun TaskListScreen(
@@ -125,6 +128,7 @@ private fun TextIconButton(icon: ImageVector, text: String, action: ButtonAction
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 private fun TaskList(tasks: List<UiTask>, onClick: (task: UiTask) -> Unit) {
     LazyColumn(
@@ -133,9 +137,13 @@ private fun TaskList(tasks: List<UiTask>, onClick: (task: UiTask) -> Unit) {
     ) {
         items(
             items = tasks,
-            key = { it.hashCode() },
+            key = { it.id },
         ) {
-            TaskCard(it, onClick)
+            AnimatedVisibility(
+                visible = it.isVisible,
+                enter = expandVertically(animationSpec = TweenSpec(durationMillis = 10_000)),
+                exit = shrinkVertically()
+            ) { TaskCard(it, onClick) }
         }
     }
 }

@@ -5,6 +5,7 @@ import com.pedrosantos.declarativemultiplatformist.common.Task
 import com.pedrosantos.declarativemultiplatformist.common.TaskCreator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class TaskListViewModel : ViewModel() {
     private val tasks = MutableLiveData<List<UiTask>>(listOf())
@@ -26,7 +27,7 @@ class TaskListViewModel : ViewModel() {
                 if (sortingDirection.value == SortingDirection.ASCENDING) {
                     tasks.value.orEmpty().sortedBy { it.dueTimestamp }
                 } else {
-                    tasks.value.orEmpty().sortedByDescending { it.dueTimestamp }
+                    tasks.value.orEmpty().sortedBy { it.dueTimestamp }
                 },
                 requireNotNull(sortingDirection.value)
             )
@@ -42,8 +43,10 @@ class TaskListViewModel : ViewModel() {
     }
 
     fun onClick(task: UiTask) {
-        // Remove clicked task from list.
-        tasks.value = tasks.value.orEmpty() - task
+        // Hide clicked task on the list.
+        tasks.value = tasks.value.orEmpty().map {
+            it.takeUnless { it.id == task.id } ?: it.copy(isVisible = false)
+        }
     }
 
     @ExperimentalStdlibApi
@@ -78,7 +81,12 @@ class TaskListViewModel : ViewModel() {
         ASCENDING, DESCENDING
     }
 
-    private fun Task.toUiTask() = UiTask(content, dueTimestamp, isUrgent)
+    private fun Task.toUiTask() = UiTask(
+        content = content,
+        dueTimestamp = dueTimestamp,
+        isUrgent = isUrgent,
+        isVisible = true
+    )
 }
 
 enum class TaskSubmitionError {
@@ -91,4 +99,10 @@ sealed class TaskSubmitionResult {
     data class Error(val errors: List<TaskSubmitionError>) : TaskSubmitionResult()
 }
 
-data class UiTask(val content: String, val dueTimestamp: Long, val isUrgent: Boolean)
+data class UiTask(
+    val id: Long = Random.nextLong(),
+    val content: String,
+    val dueTimestamp: Long,
+    val isUrgent: Boolean,
+    val isVisible: Boolean
+)
