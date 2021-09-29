@@ -28,6 +28,7 @@ class MainActivity : ComponentActivity() {
                     state,
                     viewModel::invert,
                     viewModel::onClick,
+                    viewModel::onSwipe,
                     viewModel::onSubmit,
                 )
             }

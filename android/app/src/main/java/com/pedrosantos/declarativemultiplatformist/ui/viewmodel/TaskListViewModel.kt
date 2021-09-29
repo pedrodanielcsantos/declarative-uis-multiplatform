@@ -1,5 +1,6 @@
 package com.pedrosantos.declarativemultiplatformist.ui.viewmodel
 
+import androidx.compose.material.DismissValue
 import androidx.lifecycle.*
 import com.pedrosantos.declarativemultiplatformist.common.Task
 import com.pedrosantos.declarativemultiplatformist.common.TaskCreator
@@ -75,6 +76,23 @@ class TaskListViewModel : ViewModel() {
         }
     }
 
+    fun onSwipe(task: UiTask, dismissValue: DismissValue) {
+        // Hide clicked task on the list.
+        tasks.value = tasks.value.orEmpty().map {
+            when {
+                it.id == task.id && dismissValue == DismissValue.DismissedToEnd -> {
+                    it.copy(isUrgent = !it.isUrgent)
+                }
+                it.id == task.id && dismissValue == DismissValue.DismissedToStart -> {
+                    it.copy(isVisible = false)
+                }
+                else -> {
+                    it
+                }
+            }
+        }
+    }
+
     data class State(val tasks: List<UiTask>, val sortingDirection: SortingDirection)
 
     enum class SortingDirection {
@@ -104,5 +122,5 @@ data class UiTask(
     val content: String,
     val dueTimestamp: Long,
     val isUrgent: Boolean,
-    val isVisible: Boolean
+    val isVisible: Boolean,
 )
