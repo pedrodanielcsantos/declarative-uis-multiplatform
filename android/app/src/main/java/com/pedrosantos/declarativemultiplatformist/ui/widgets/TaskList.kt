@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.pedrosantos.declarativemultiplatformist.R
 import com.pedrosantos.declarativemultiplatformist.ui.theme.Shapes
@@ -59,21 +60,25 @@ fun TaskListScreen(
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                val hasTasks = state?.tasks?.isNotEmpty() == true
+                val hasVisibleTasks = state?.tasks.orEmpty().count { it.isVisible } != 0
                 TaskListControls(
                     sortingDirection = state?.sortingDirection,
-                    showInvert = hasTasks,
+                    showInvert = hasVisibleTasks,
                     onInvert = onInvert,
                     onAdd = {
                         scope.launch { addTaskBottomSheetState.bottomSheetState.expand() }
                     }
                 )
-                if (state?.tasks?.isNotEmpty() == true) {
-                    TaskList(tasks = state.tasks, onClick)
+                if (hasVisibleTasks) {
+                    TaskList(tasks = requireNotNull(state).tasks, onClick)
                 } else {
-                    Text(text = stringResource(id = R.string.no_tasks))
+                    Text(
+                        text = stringResource(id = R.string.no_tasks),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth().fillMaxHeight()
+                    )
                 }
             }
         }
