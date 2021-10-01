@@ -1,17 +1,15 @@
 package com.pedrosantos.declarativemultiplatformist.ui.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.compose.material.DismissValue
+import androidx.lifecycle.*
 import com.pedrosantos.declarativemultiplatformist.common.Task
 import com.pedrosantos.declarativemultiplatformist.common.TaskCreator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class TaskListViewModel : ViewModel() {
-    private val tasks = MutableLiveData<List<Task>>(listOf())
+    private val tasks = MutableLiveData<List<UiTask>>(listOf())
     private val sortingDirection = MutableLiveData(SortingDirection.ASCENDING)
 
     private val taskCreator = TaskCreator()
@@ -30,7 +28,7 @@ class TaskListViewModel : ViewModel() {
                 if (sortingDirection.value == SortingDirection.ASCENDING) {
                     tasks.value.orEmpty().sortedBy { it.dueTimestamp }
                 } else {
-                    tasks.value.orEmpty().sortedByDescending { it.dueTimestamp }
+                    tasks.value.orEmpty().sortedBy { it.dueTimestamp }
                 },
                 requireNotNull(sortingDirection.value)
             )
@@ -45,29 +43,84 @@ class TaskListViewModel : ViewModel() {
         }
     }
 
-    fun onClick(task: Task) {
-        // Remove clicked task from list.
-        tasks.value = tasks.value.orEmpty() - task
+    fun onClick(task: UiTask) {
+        // Hide clicked task on the list.
+        tasks.value = tasks.value.orEmpty().map {
+            it.takeUnless { it.id == task.id } ?: it.copy(isVisible = false)
+        }
     }
 
+    @ExperimentalStdlibApi
     fun onSubmit(
         content: String,
         dateTime: String,
         isUrgent: Boolean
-    ): Boolean {
+    ): TaskSubmitionResult {
         val result = taskCreator.create(content, dateTime, isUrgent)
 
         return if (result is TaskCreator.Result.Success) {
-            tasks.value = tasks.value.orEmpty() + result.task
-            true
+            tasks.value = tasks.value.orEmpty() + result.task.toUiTask()
+            TaskSubmitionResult.Success
         } else {
-            false
+            val errors = (result as TaskCreator.Result.Invalid).errors
+            TaskSubmitionResult.Error(
+                buildList {
+                    if (errors.contains(TaskCreator.Error.InvalidContent)) {
+                        add(TaskSubmitionError.INVALID_CONTENT)
+                    }
+                    if (errors.contains(TaskCreator.Error.InvalidDate)) {
+                        add(TaskSubmitionError.INVALID_DATE)
+                    }
+                }
+            )
         }
     }
 
-    data class State(val tasks: List<Task>, val sortingDirection: SortingDirection)
+    fun onSwipe(task: UiTask, dismissValue: DismissValue) {
+        // Hide clicked task on the list.
+        tasks.value = tasks.value.orEmpty().map {
+            when {
+                it.id == task.id && dismissValue == DismissValue.DismissedToEnd -> {
+                    it.copy(isUrgent = !it.isUrgent)
+                }
+                it.id == task.id && dismissValue == DismissValue.DismissedToStart -> {
+                    it.copy(isVisible = false)
+                }
+                else -> {
+                    it
+                }
+            }
+        }
+    }
+
+    data class State(val tasks: List<UiTask>, val sortingDirection: SortingDirection)
 
     enum class SortingDirection {
         ASCENDING, DESCENDING
     }
+
+    private fun Task.toUiTask() = UiTask(
+        content = content,
+        dueTimestamp = dueTimestamp,
+        isUrgent = isUrgent,
+        isVisible = true
+    )
 }
+
+enum class TaskSubmitionError {
+    INVALID_DATE, INVALID_CONTENT
+}
+
+sealed class TaskSubmitionResult {
+    object Success : TaskSubmitionResult()
+
+    data class Error(val errors: List<TaskSubmitionError>) : TaskSubmitionResult()
+}
+
+data class UiTask(
+    val id: Long = Random.nextLong(),
+    val content: String,
+    val dueTimestamp: Long,
+    val isUrgent: Boolean,
+    val isVisible: Boolean,
+)

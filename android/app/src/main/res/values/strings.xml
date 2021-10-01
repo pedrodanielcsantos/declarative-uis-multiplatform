@@ -9,7 +9,9 @@
     <string name="no_tasks">No more tasks to do!!🥳\nClick \"Add task\" above when the next chore comes up.</string>
 
     <string name="content">Content</string>
-    <string name="date_format">yyyy-MM-ddThh:mm</string>
+    <string name="content_error">Use a non-empty content</string>
+    <string name="date_format">Date and time (yyyy-MM-ddThh:mm)</string>
+    <string name="date_format_error">Please input a date with the format yyyy-MM-ddThh:mm</string>
     <string name="urgent">Urgent</string>
     <string name="submit">Submit</string>
 </resources>

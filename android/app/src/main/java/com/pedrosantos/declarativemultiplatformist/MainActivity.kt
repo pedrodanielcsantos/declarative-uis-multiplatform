@@ -4,12 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import com.pedrosantos.declarativemultiplatformist.ui.theme.DeclarativeMultiplatformistTheme
 import com.pedrosantos.declarativemultiplatformist.ui.viewmodel.TaskListViewModel
 import com.pedrosantos.declarativemultiplatformist.ui.widgets.TaskListScreen
 
+@ExperimentalAnimationApi
+@ExperimentalMaterialApi
+@ExperimentalStdlibApi
 class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<TaskListViewModel>()
 
@@ -23,6 +28,7 @@ class MainActivity : ComponentActivity() {
                     state,
                     viewModel::invert,
                     viewModel::onClick,
+                    viewModel::onSwipe,
                     viewModel::onSubmit,
                 )
             }
