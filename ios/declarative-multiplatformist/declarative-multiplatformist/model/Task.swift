@@ -23,7 +23,7 @@ import declarative_multiplatformist_common_ios
      init(content: String, dueTimestamp: Double, isUrgent: Bool) {
          self.content = content
          self.dueTimestamp = dueTimestamp
-         self.isUrgent = is
+         self.isUrgent = isUrgent
      }
  }
 
